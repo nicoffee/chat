@@ -1,30 +1,26 @@
-var MongoClient = require('mongodb').MongoClient
-, assert = require('assert')
-, format = require('util').format;
+const mongoose = require('mongoose')
 
-// Connection URL
-var url = 'mongodb://localhost:27017/chat';
-// Use connect method to connect to the Server
-MongoClient.connect(url, function(err, db) {
-    assert.equal(null, err);
-    console.log("Connected correctly to server");
+mongoose.connect('mongodb://localhost/test', {
+  useMongoClient: true,
+  promiseLibrary: global.Promise
+})
 
-    const collection = db.collection('test_insert');
+const schema = mongoose.Schema({
+  name: String
+})
+schema.methods.meow = function() {
+  console.log(this.get('name'))
+}
 
-    collection.remove({}, (err, affected) => {
-        if (err) throw err;
+const Cat = mongoose.model('Cat', schema)
 
-        collection.insert({a: 2}, (err, docs) => {
-            collection.count((err, count) => console.log(format('count = %s', count)));
-        });
-    
-        const cursor = collection.find({a: 2});
-        cursor.toArray((err, results) => {
-            console.dir(results);
-    
-            db.close();
-        });
-    });
+const kitty = new Cat({
+  name: 'Zildjian'
+})
 
-    
-});
+console.log('kitty', kitty)
+
+kitty
+  .save()
+  .then((...rest) => console.log(rest))
+  .catch(err => console.log(err))
