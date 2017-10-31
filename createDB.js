@@ -1,26 +1,10 @@
-const mongoose = require('mongoose')
+const User = require('models/user').User;
 
-mongoose.connect('mongodb://localhost/test', {
-  useMongoClient: true,
-  promiseLibrary: global.Promise
-})
-
-const schema = mongoose.Schema({
-  name: String
-})
-schema.methods.meow = function() {
-  console.log(this.get('name'))
-}
-
-const Cat = mongoose.model('Cat', schema)
-
-const kitty = new Cat({
+const user = new User({
   name: 'Zildjian'
 })
 
-console.log('kitty', kitty)
+  if (err) throw err
 
-kitty
-  .save()
-  .then((...rest) => console.log(rest))
-  .catch(err => console.log(err))
+  User.findOne({ username: 'Tester' }, (err, tester) => console.log(tester))
+})
