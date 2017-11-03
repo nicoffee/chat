@@ -22,15 +22,16 @@ const requireModels = cb => {
 
 const createUsers = cb => {
   const users = [
-    { username: 'Tester', password: '123' },
-    { username: 'Developer', password: '666' },
-    { username: 'Manager', password: '321' }
+    { username: 'Tester', password: '1236223' },
+    { username: 'Dev', password: '6231666' },
+    { username: 'CEO', password: '125235' }
   ]
 
   async.each(
     users,
     (userData, cb) => {
       const user = new mongoose.models.User(userData)
+      console.log('user', user)
       user.save(cb)
     },
     cb
