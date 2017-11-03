@@ -8,4 +8,4 @@ const user = new User({
 user
   .save()
   .then((...rest) => console.log(rest))
-  .catch(err => console.log('error'))
+  .catch(err => console.log('error', err))

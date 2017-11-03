@@ -11,35 +11,24 @@ const schema = new Schema({
   },
   hashedPassword: {
     type: String,
-    required: true
+    required: false
   },
   salt: {
     type: String,
-    required: true
+    required: false
   },
   created: {
     type: String,
     unique: true,
-    required: true
+    required: false
   }
 })
-
-schema.methods.encryptPassword = password =>
-  crypto
-    .createHmac('sha1', this.salt)
-    .update(password)
-    .digest('hex')
 
 schema
   .virtual('password')
   .set(password => {
-    schema._plainPassword = password
-    schema.salt = Math.random() + ''
-    schema.hashedPassword = schema.methods.encryptPassword(password)
+    this.password = password
   })
-  .get(() => this._plainPassword)
-
-schema.methods.checkPassword = password =>
-  this.encryptPassword(password) === this.hashedPassword
+  .get(() => this.password)
 
 exports.User = mongoose.model('User', schema)
