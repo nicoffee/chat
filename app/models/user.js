@@ -8,19 +8,6 @@ const schema = new Schema({
     type: String,
     unique: false,
     required: true
-  },
-  hashedPassword: {
-    type: String,
-    required: false
-  },
-  salt: {
-    type: String,
-    required: false
-  },
-  created: {
-    type: String,
-    unique: true,
-    required: false
   }
 })
 

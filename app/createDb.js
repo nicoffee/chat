@@ -31,7 +31,6 @@ const createUsers = cb => {
     users,
     (userData, cb) => {
       const user = new mongoose.models.User(userData)
-      console.log('user', user)
       user.save(cb)
     },
     cb
