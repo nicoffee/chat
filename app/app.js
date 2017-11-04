@@ -4,8 +4,9 @@ var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
-var config = require('./config/index')
+var config = require('./config')
 var log = require('./libs/log')(module)
+
 var HttpError = require('./error').HttpError
 
 var index = require('./routes/index')
@@ -24,6 +25,27 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
+
+const session = require('express-session')
+const mongoose = require('./libs/mongoose')
+var MongoStore = require('connect-mongo')(session)
+
+app.use(
+  session({
+    secret: config.get('session:secret'),
+    key: config.get('session:key'),
+    cookie: config.get('session:cookie'),
+    saveUninitialized: false,
+    resave: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+  })
+)
+
+app.use((req, res, next) => {
+  req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1
+  res.send('Visits ' + req.session.numberOfVisits)
+})
+
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(require('./middleware/sendHttpError'))
 
