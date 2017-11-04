@@ -1,7 +1,7 @@
 const winston = require('winston')
 const ENV = process.env.NODE_ENV
 
-console.log('ENV', ENV)
+// console.log('ENV', ENV)
 
 const getLogger = module => {
   const path = module.filename

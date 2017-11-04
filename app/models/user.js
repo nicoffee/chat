@@ -1,4 +1,3 @@
-const crypto = require('crypto')
 const mongoose = require('./../libs/mongoose')
 
 const Schema = mongoose.Schema

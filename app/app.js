@@ -1,6 +1,6 @@
 var express = require('express')
 var path = require('path')
-var favicon = require('serve-favicon')
+// var favicon = require('serve-favicon')
 var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
@@ -41,7 +41,7 @@ app.use(
   })
 )
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1
   res.send('Visits ' + req.session.numberOfVisits)
 })
@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   if (typeof err === 'number') {
     err = new HttpError(err)
   }
@@ -69,8 +69,7 @@ app.use(function(err, req, res, next) {
   if (err instanceof HttpError) {
     res.sendHttpError(err)
   } else {
-    if (app.get('env') !== 'development') {
-    } else {
+    if (app.get('env') === 'development') {
       log.error(err)
       err = new HttpError(500)
       res.sendHttpError(err)
