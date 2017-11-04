@@ -38,7 +38,6 @@ const createUsers = cb => {
 }
 
 async.series([open, dropDatabase, requireModels, createUsers], err => {
-  console.log(err)
   mongoose.disconnect()
   process.exit(err ? 255 : 0)
 })
