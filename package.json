@@ -9,21 +9,19 @@
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "~1.17.1",
-    "co": "^4.6.0",
     "connect-mongo": "^2.0.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.3",
+    "ejs": "^2.5.7",
     "eslint": "^4.10.0",
-    "eslint-plugin-es6-recommended": "^0.1.2",
     "express": "~4.15.2",
     "express-session": "^1.15.6",
     "mongodb": "^2.2.33",
     "mongoose": "^4.11.13",
     "morgan": "~1.8.1",
     "nconf": "^0.8.4",
-    "pug": "~2.0.0-beta11",
-    "serve-favicon": "~2.4.2",
-    "winston": "^2.3.1"
+    "preact": "^8.2.6",
+    "serve-favicon": "~2.4.2"
   },
   "devDependencies": {
     "eslint-config-standard": "^10.2.1",

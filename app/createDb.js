@@ -1,4 +1,4 @@
-const mongoose = require('./libs/mongoose')
+const mongoose = require('./lib/mongoose')
 const async = require('async')
 
 mongoose.set('debug', true)

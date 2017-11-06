@@ -7,7 +7,7 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 
 const config = require('./config')
-const mongoose = require('./libs/mongoose')
+const mongoose = require('./lib/mongoose')
 const MongoStore = require('connect-mongo')(session)
 
 const index = require('./routes/index')
@@ -15,9 +15,7 @@ const login = require('./routes/login')
 
 const app = express()
 
-app.set('views', path.join(__dirname, 'views'))
-app.set('view engine', 'ejs')
-
+app.use(express.static(__dirname + '/public'))
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -52,7 +50,7 @@ app.use(function(err, req, res) {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   res.status(err.status || 500)
-  res.render('error')
+  res.render('error.html')
 })
 
 module.exports = app
