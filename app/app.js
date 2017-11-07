@@ -33,11 +33,10 @@ app.use(
   })
 )
 
-app.use(express.static(path.join(__dirname, 'public')))
 app.use(require('./middleware/sendHttpError'))
 
 app.use('/', index)
-app.use('/login', login)
+// app.use('/login', login)
 
 app.use(function(req, res, next) {
   const err = new Error('Not Found')
