@@ -6,7 +6,7 @@ router.get('/', function(req, res) {
 })
 
 router.post('/login', function(req, res) {
-  console.log('_POST_')
+  console.log(req.body)
 })
 
 module.exports = router

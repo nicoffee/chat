@@ -11,7 +11,6 @@ const mongoose = require('./lib/mongoose')
 const MongoStore = require('connect-mongo')(session)
 
 const index = require('./routes/index')
-const login = require('./routes/login')
 
 const app = express()
 
@@ -36,7 +35,6 @@ app.use(
 app.use(require('./middleware/sendHttpError'))
 
 app.use('/', index)
-// app.use('/login', login)
 
 app.use(function(req, res, next) {
   const err = new Error('Not Found')

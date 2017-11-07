@@ -48,9 +48,6 @@
                 url: "/login",
                 method: "POST",
                 data: form.serialize(),
-                complete: function () {
-                    // $(":submit", form).button("reset");
-                },
                 statusCode: {
                     200: function () {
                         form.html("Вы вошли в сайт").addClass('alert-success');
