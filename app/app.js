@@ -9,7 +9,6 @@ const session = require('express-session')
 const config = require('./config')
 const mongoose = require('./lib/mongoose')
 const MongoStore = require('connect-mongo')(session)
-
 const index = require('./routes/index')
 
 const app = express()
@@ -36,13 +35,13 @@ app.use(require('./middleware/sendHttpError'))
 
 app.use('/', index)
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   const err = new Error('Not Found')
   err.status = 404
   next(err)
 })
 
-app.use(function(err, req, res) {
+app.use((err, req, res) => {
   res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
