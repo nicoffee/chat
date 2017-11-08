@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  p
+    | | Введите имя пользователя и пароль. Если такого пользователя нет - он будет создан.
+    form.form-horizontal.login-form(name="login-form")
+        .form-group
+            label.col-lg-2.control-label(for="input-username") Имя
+            .col-lg-10
+                input#input-username.form-control(name="username", value="name", type="text", placeholder="Имя")
+        .form-group
+            label.col-lg-2.control-label(for="input-password") Пароль
+            .col-lg-10
+                input#input-password.form-control(name="password", value="pass", type="password", placeholder="Пароль")
+        .form-group
+            .col-lg-offset-2.col-lg-10
+                button.btn.btn-primary(type="submit", data-loading-text="Отправляю...") Войти
+                span.help-block.error
+  script.
+      $(document.forms['login-form']).on('submit', function (e) {
+              e.preventDefault();
+
+              var form = $(this);
+
+              $('.error', form).html('');
+
+              $.ajax({
+                  url: "/login",
+                  method: "POST",
+                  data: form.serialize(),
+                  beforeSend: () => console.log('beforeSend'),
+                  complete: () => console.log('complete'),
+                  statusCode: {
+                      200: function () {
+                          form.html("Вы вошли в сайт").addClass('alert-success');
+                          window.location.href = "/chat";
+                      },
+                      403: function (jqXHR) {
+                          var error = JSON.parse(jqXHR.responseText);
+                          $('.error', form).html(error.message);
+                      }
+                  }
+              });
+              return false;
+          });

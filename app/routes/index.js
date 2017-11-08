@@ -1,12 +1,15 @@
 const express = require('express')
+const async = require('async')
 const router = express.Router()
-const User = require('models/user').User
-const AuthError = require('models/user').AuthError
-const HttpError = require('error').HttpError
+const User = require('./../models/user').User
+const AuthError = require('./../models/user').AuthError
+const HttpError = require('./../error').HttpError
 
 router.get('/', function(req, res) {
-  res.render('index.html')
+  res.render('index')
 })
+
+router.get('/chat', (req, res) => res.render('chat'))
 
 router.post('/login', function(req, res, next) {
   const username = req.body.username
@@ -24,6 +27,10 @@ router.post('/login', function(req, res, next) {
     req.session.user = user._id
     res.send({})
   })
+})
+
+router.post('/logout', function(req, res) {
+  req.session.destroy()
 })
 
 module.exports = router

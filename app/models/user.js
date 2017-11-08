@@ -1,7 +1,7 @@
 const crypto = require('crypto')
 const async = require('async')
 
-const mongoose = require('lib/mongoose'),
+const mongoose = require('./../lib/mongoose'),
   Schema = mongoose.Schema
 
 const schema = new Schema({

@@ -13,7 +13,9 @@ const index = require('./routes/index')
 
 const app = express()
 
-app.use(express.static(__dirname + '/public'))
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'pug')
+
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
 app.use(logger('dev'))
 app.use(bodyParser.json())
@@ -32,6 +34,7 @@ app.use(
 )
 
 app.use(require('./middleware/sendHttpError'))
+app.use(require('./middleware/loadUser'))
 
 app.use('/', index)
 
