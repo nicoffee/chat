@@ -4,12 +4,13 @@ const router = express.Router()
 const User = require('./../models/user').User
 const AuthError = require('./../models/user').AuthError
 const HttpError = require('./../error').HttpError
+const checkAuth = require('./../middleware/checkAuth')
 
 router.get('/', function(req, res) {
   res.render('index')
 })
 
-router.get('/chat', (req, res) => res.render('chat'))
+router.get('/chat', checkAuth, (req, res) => res.render('chat'))
 
 router.post('/login', function(req, res, next) {
   const username = req.body.username
