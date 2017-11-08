@@ -2,3 +2,30 @@ extends layout
 
 block content
   p Welcome, #{user.username}
+  #room
+    ul
+    form
+      input.form-control(autocomplete='off', autofocus='', placeholder='Сообщение...')
+
+  script.
+    var socket = io();
+    
+    var form = $('#room form');
+    var ul = $('#room ul');
+
+    form.submit(function() {
+      var input = $(this).find('input');
+      var text = input.val();
+      input.val('');
+
+      socket.emit('message', text, function(data) {
+        console.log(data)
+        $('<li>', {text: text}).appendTo(ul);
+      });
+
+      return false;
+    });
+
+    socket.on('message', function(text) {
+      $('<li>', {text: text}).appendTo(ul);
+    });
