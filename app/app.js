@@ -7,8 +7,6 @@ const bodyParser = require('body-parser')
 const session = require('express-session')
 
 const config = require('./config')
-const mongoose = require('./lib/mongoose')
-const MongoStore = require('connect-mongo')(session)
 const index = require('./routes/index')
 
 const app = express()
@@ -29,7 +27,7 @@ app.use(
     cookie: config.get('session:cookie'),
     saveUninitialized: false,
     resave: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    store: require('./lib/sessionStore')
   })
 )
 
@@ -49,7 +47,7 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   res.status(err.status || 500)
-  res.render('error.html')
+  res.render('error')
 })
 
 module.exports = app

@@ -18,7 +18,6 @@ html
         $.ajax({
               url: "/logout",
               method: "POST",
-              beforeSend: () => console.log('beforeSend logout'),
               complete: () => document.location.href = "/"
           });
       })

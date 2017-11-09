@@ -1,5 +1,4 @@
 const express = require('express')
-const async = require('async')
 const router = express.Router()
 const User = require('./../models/user').User
 const AuthError = require('./../models/user').AuthError
@@ -30,8 +29,14 @@ router.post('/login', function(req, res, next) {
   })
 })
 
-router.post('/logout', function(req, res) {
-  req.session.destroy()
+router.post('/logout', function(req, res, next) {
+  const sid = req.session.id
+  const io = req.app.get('io')
+
+  req.session.destroy(err => {
+    io.sockets.$emit('session:reload', sid)
+    if (err) return next(next)
+  })
 })
 
 module.exports = router
