@@ -27,8 +27,6 @@ block content
                   url: "/login",
                   method: "POST",
                   data: form.serialize(),
-                  beforeSend: () => console.log('beforeSend'),
-                  complete: () => console.log('complete'),
                   statusCode: {
                       200: function () {
                           form.html("Вы вошли в сайт").addClass('alert-success');
