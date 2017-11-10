@@ -7,10 +7,8 @@ const User = require('./../models/user').User
 const cookieParser = require('cookie-parser')
 
 function loadSession(sid, callback) {
-  // sessionStore callback is not quite async-style!
   sessionStore.load(sid, function(err, session) {
     if (arguments.length == 0) {
-      // no arguments => no session
       return callback(null, null)
     } else {
       return callback(null, session)
@@ -39,53 +37,6 @@ module.exports = server => {
   const io = require('socket.io').listen(server)
 
   io.set('origins', 'localhost:*')
-
-  // io.set('authorization', function(handshake, callback) {
-  //   async.waterfall(
-  //     [
-  //       function(callback) {
-  //         handshake.cookies = cookie.parse(handshake.headers.cookie || '')
-  //         const sidCookie = handshake.cookies[config.get('session:key')]
-
-  //         const sid = cookieParser.signedCookie(
-  //           sidCookie,
-  //           config.get('session:secret')
-  //         )
-
-  //         loadSession(sid, callback)
-  //       },
-  //       function(session, callback) {
-  //         if (!session) {
-  //           callback(new HttpError(401, 'No session'))
-  //         }
-
-  //         handshake.session = session
-
-  //         loadUser(session, callback)
-  //       },
-  //       function(user, callback) {
-  //         if (!user) {
-  //           callback(new HttpError(403, 'Anonymous session may not connect'))
-  //         }
-
-  //         handshake.user = user
-
-  //         callback(null)
-  //       }
-  //     ],
-  //     function(err) {
-  //       if (!err) {
-  //         return callback(null, true)
-  //       }
-
-  //       if (err instanceof HttpError) {
-  //         return callback(null, false)
-  //       }
-
-  //       callback(err)
-  //     }
-  //   )
-  // })
 
   io.use(function(socket, next) {
     async.waterfall(
