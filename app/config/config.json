@@ -1,7 +1,8 @@
 {
   "port": 3000,
   "mongoose": {
-    "uri": "mongodb://localhost/chat",
+    "uri":
+      "mongodb://heroku_p8p4xz92:tr2bpttjmp6i6745154fcoa3vl@ds113736.mlab.com:13736/heroku_p8p4xz92",
     "options": {
       "useMongoClient": true
     }
