@@ -12,9 +12,7 @@ block content
     var ul = $('#room ul');
     var form = $('#room form');
 
-    const socket = io({
-      transports: ['websocket']
-    });
+    const socket = io({transports: ['websocket'], upgrade: false});
 
     socket
       .on('message', function(username, message) {

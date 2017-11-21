@@ -1,19 +1,19 @@
 extends layout
 
 block content
-  p Введите имя пользователя и пароль. Если такого пользователя нет - он будет создан.
+  p Enter username and password. If such user does not exist, it will be created.
     form.form-horizontal.login-form(name="login-form")
         .form-group
-            label.col-lg-2.control-label(for="input-username") Имя
+            label.col-lg-2.control-label(for="input-username") Name
             .col-lg-10
                 input#input-username.form-control(name="username", value="name", type="text", placeholder="Имя")
         .form-group
-            label.col-lg-2.control-label(for="input-password") Пароль
+            label.col-lg-2.control-label(for="input-password") Password
             .col-lg-10
                 input#input-password.form-control(name="password", value="pass", type="password", placeholder="Пароль")
         .form-group
             .col-lg-offset-2.col-lg-10
-                button.btn.btn-primary(type="submit", data-loading-text="Отправляю...") Войти
+                button.btn.btn-primary(type="submit", data-loading-text="Отправляю...") Enter
                 span.help-block.error
   script.
       $(document.forms['login-form']).on('submit', function (e) {
