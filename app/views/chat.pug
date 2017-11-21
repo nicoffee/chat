@@ -12,11 +12,11 @@ block content
     var ul = $('#room ul');
     var form = $('#room form');
 
-    var socket = io.connect('', {
-      reconnect: false
-    });
+    //- var socket = io.connect('', {
+    //-   reconnect: false
+    //- });
 
-    socket = io({transports: [
+    var socket = io({transports: [
     'websocket', 
     'flashsocket', 
     'htmlfile', 
