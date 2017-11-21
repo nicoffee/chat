@@ -37,7 +37,14 @@ module.exports = server => {
   const io = require('socket.io').listen(server)
 
   io.set('origins', 'localhost:*')
-  io.set('transports', ['websocket'])
+  io.set('transports', [
+    'websocket',
+    'flashsocket',
+    'htmlfile',
+    'xhr-polling',
+    'jsonp-polling',
+    'polling'
+  ])
 
   io.use(function(socket, next) {
     async.waterfall(

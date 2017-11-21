@@ -16,7 +16,14 @@ block content
       reconnect: false
     });
 
-    const socket = io({transports: ['websocket'], upgrade: false});
+    socket = io({transports: [
+    'websocket', 
+    'flashsocket', 
+    'htmlfile', 
+    'xhr-polling', 
+    'jsonp-polling', 
+    'polling'
+  ], upgrade: false});
 
     socket
       .on('message', function(username, message) {
