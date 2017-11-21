@@ -37,7 +37,7 @@ module.exports = server => {
   const io = require('socket.io').listen(server)
 
   io.set('origins', 'localhost:*')
-  io.set('transports', ['websocket', 'polling'])
+  io.set('transports', ['polling'])
   io.set('polling duration', 10)
 
   io.use(function(socket, next) {
